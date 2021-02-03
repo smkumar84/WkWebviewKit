@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="Login.css" />
+        <meta content='maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+    </head>
+<body>
+
+        <div style = "text-align: center;    font-size: 55px;">Web Form to iOS Native</div>
+        <div class="container">
+                <div class="inputContainer">
+                  <input class="style" type="companyID" placeholder="Company ID" id="companyID"></input>
+                  <input class="style" type="userID" placeholder="User ID" id="userID"></input>
+                  <input class="style" type="accessToken" placeholder="Access Token" id="accessToken"></input>
+                  <div class="sumbitButtons">             
+                      <button type="submit" class="style" onclick="sendDetails()"><i>Send Data from Web to iOS</i></button>
+                  </div>
+                </div>              
+              </div>
+
+    <script>
+        function fillTheiOSDatas(jsonData) {
+            console.log('jsonData =' , jsonData);
+            var userData = JSON.parse(jsonData);
+            document.getElementById("companyID").value = userData["companyID"];
+            document.getElementById("userID").value =userData["userID"];
+            document.getElementById("accessToken").value = userData["accessToken"];
+        }
+
+        function sendDetails() {
+                   var companyID = document.getElementById("companyID").value;
+                   var userID = document.getElementById("userID").value;
+                   var accessToken = document.getElementById("accessToken").value;
+                   var value = {"companyID":companyID , "userID":userID , "accessToken" : accessToken}
+
+                   try {
+                       webkit.messageHandlers.sumbitWebToiOS.postMessage(value);
+                      // webkit.messageHandlers.refreshWebPage.postMessage(dictionary);
+
+               } catch(err) {
+                       console.log('error');
+                    }
+               }
+                  
+    </script>
+
+</body>
+</html> 
